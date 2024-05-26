@@ -1,0 +1,12 @@
+#export-btn {
+    background:#04ab46;
+    color:#fff;border:none;padding:10px;display:inline-block;margin-bottom:10px;cursor: pointer;
+}
+
+.cell-row {
+    display:flex;
+}
+.cell {
+    width:80px;height:40px;outline: none;
+    border:1px solid lightgray;
+}
