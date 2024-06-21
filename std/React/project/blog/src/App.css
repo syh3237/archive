@@ -6,7 +6,11 @@ div {
   box-sizing: border-box;
 }
 .list {
-  padding-left:20px;text-align:left;border-bottom: 1px solid gray;
+  position:relative;overflow:hidden;padding-left:20px;text-align:left;border-bottom: 1px solid gray;
+}
+
+.list .btn_delete {
+  position:absolute;right:5%;top:50%;transform:translateY(-50%);
 }
 
 .modal {
