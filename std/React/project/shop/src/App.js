@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
-import Detail from './pages/detail.js';
+import Detail from './pages/Detail.js';
 
 function App() {
 
@@ -43,8 +43,6 @@ function App() {
           </Container>
         </Navbar>
 
-
-
         <Routes>
           <Route path='/' element={
             <>
@@ -62,7 +60,7 @@ function App() {
               </div>
             </>
             } />
-          <Route path='/detail' element={ <Detail shoes={shoes}/> } />
+          <Route path='/detail/:id' element={ <Detail shoes={shoes}/> } />
 
           <Route path='/about' element={ <About/> }>
             <Route path='member' element={ <div>멤버</div> } />
