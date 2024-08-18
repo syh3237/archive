@@ -18,6 +18,12 @@ let data = [
         title : "Grey Yordan",
         content : "Born in the States",
         price : 130000
+    },
+    {
+        id : 3,
+        title : "Nike",
+        content : "Just Do It",
+        price : 129000
     }
 ]
 
