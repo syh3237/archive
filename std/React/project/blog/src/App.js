@@ -1,4 +1,6 @@
 /* eslint-disable */
+// warning 메세지 제거 lint
+
 
 import logo from './logo.svg';
 import './App.css';
@@ -7,75 +9,91 @@ import { useState } from 'react';
 function App() {
 
   let post = '강남 우동 맛집';
-  let [글제목, 글제목변경] = useState(['남자 코트 추천','강남 우동 맛집', '타입스크립트','자바스크립트']);
-  let [좋아요, change] = useState([0,0,0,0,0]);
+  let [title, setTitle] = useState(['JS','CSS','REACT'])
+  let [like,setLike] = useState(Array(title.length).fill(0));
   let [modal, setModal] = useState(false);
-  let [title, setTitle] = useState(0);
-  let [입력값, 입력값변경] = useState('');
+  let [mtitle, setMtitle] = useState(0);
+  let [data, setData] = useState('');
+  let [date, setDate] = useState([{ m : 1 , d : 10 },{ m : 2 , d : 12 },{ m : 3 , d : 15 }]);
 
   return (
     <div className="App">
       <div className='black-nav'>
         <h3>ReactBlog</h3>
       </div>
-      {
-        글제목.map((a, i)=> {
-          return (
-            <div className="list" key={i}>
-              <h4 onClick={()=> {
-                setModal(!modal)
-                setTitle(i)
-              }}>
-                {글제목[i]}
-                <span onClick={(e)=>{
-                  e.stopPropagation();
-                  let copy = [...좋아요];
-                  copy[i] = copy[i] + 1;
-                  change(copy)
-                }}>❤️</span> {좋아요[i]}
-              </h4>
-              <p>6월 20일 발행</p>
-              <button className='btn_delete' onClick={()=> {
-                let copy = [...글제목];
-                copy.splice(i, 1);
-                글제목변경(copy);
-              }}>Delete</button>
-            </div>
-          )
-        })
-      }
-
-      <input onChange={(e)=> {
-        입력값변경(e.target.value)
-      }}/>
-      <button onClick={(e)=> {
-        // input 태그가 빈 값일 경우 리스트 추가 X
-        let copy = [...글제목];
-        if(!입력값 == '') {
-          copy.unshift(입력값);
-          글제목변경(copy);
+        {
+          title.map((a,i)=>{
+            return(
+              <div className="list" key={i}>
+                <h4 onClick={ ()=>{
+                  setModal(!modal)
+                  setMtitle(i)
+                  } }>{title[i]}
+                  <span onClick={(e)=>{
+                      e.stopPropagation();
+                      let copy = [...like];
+                      copy[i] = copy[i] + 1;
+                      setLike(copy)
+                    }
+                  }>👌</span>{like[i]}
+                </h4>
+                <p>
+                  {date[i].m}월 {date[i].d}일 발행
+                </p>
+                <button type='button' onClick={()=>{
+                  let copy = [...title];
+                  copy.splice(i, 1);
+                  like.splice(i, 1);
+                  setTitle(copy);
+                }}>삭제</button>
+              </div>
+            )
+          })
         }
-      }}>추가</button>
+        {
+          modal == true ? <Modal color="orange" mtitle={mtitle} title={title} setTitle={setTitle}/> : null
+        }
+        <div className="input_box">
+          <input type="text" onChange={(e)=>{
+            setData(e.target.value)
+          }} />
+          <button onClick={()=>{
+            let copy = [...title];
+            copy.unshift(data);
+            like.unshift(0);
+            setLike(like);
+            // 
+            if(!data == ''){
+              setTitle(copy);
 
-      {
-        modal == true ? <Modal color={'aquamarine'} title={title} 글제목변경={글제목변경} 글제목={글제목}/> : null
-      }
+              let now = new Date();
+              let now_month = (now.getMonth() + 1).toString().padStart(2,'0');
+              let now_date = now.getDate().toString().padStart(2,'0');
+              // let copyMonth = [...month];
+              let theDate = { m : now_month , d : now_date };
+              let copyDate = [...date];
+
+              copyDate.unshift(theDate);
+              setDate(copyDate);
+            }
+          }}>발행</button>
+        </div>
     </div>
   );
 }
 
 function Modal(props) {
   return (
-    <div className="modal" style={{background : props.color}}>
-      <h4>{props.글제목[props.title]}</h4>
-      <p>날짜</p>
-      <p>상세내용</p>
-      <button onClick={()=> {
-        let copy = [...props.글제목];
-        copy[0] = '여자 코트 추천';
-        {props.글제목변경(copy)}
-      }}>글 수정</button>
-    </div>
+        <div className="modal" style={{background : props.color}}>
+          <h4>{ props.title[props.mtitle] }</h4>
+          <p>날짜</p>
+          <p>상세 내용</p>
+          <button onClick={()=>{
+            let copy = [...props.title];
+            copy[0] = '겨울 롱패딩 추천';
+            props.setTitle(copy);
+          }}>1번 타이틀 수정</button>
+        </div>
   )
 }
 

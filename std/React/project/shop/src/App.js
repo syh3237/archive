@@ -1,14 +1,16 @@
 import './App.css';
-import { createContext, useEffect, useState } from 'react';
+import { lazy, createContext, useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
-import Detail from './pages/Detail.js'
+// import Detail from './pages/Detail.js'
+// import Cart from './pages/Cart.js'
 import axios from 'axios'
-import Cart from './pages/Cart.js'
 import { useQuery } from 'react-query'
-// react-query 3:30
+
+const Detail = lazy(() => import('./pages/Detail.js'));
+const Cart = lazy(() => import('./pages/Cart.js'));
 
 export let Context1 = createContext()
 
@@ -23,7 +25,13 @@ function App() {
   let [재고] = useState([10, 11, 12])
   let navigate = useNavigate();
 
-  useQuery()
+  let result = useQuery('작명', ()=>{
+    return axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+      console.log('요청됨');
+      return a.date
+    })
+  })
+
 
 
   return (
@@ -35,7 +43,12 @@ function App() {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link onClick={()=> {navigate('/cart')}}>Cart</Nav.Link>
             </Nav>
-            <Nav className='ms-auto'>반가워요 Son</Nav>
+            <Nav className='ms-auto'>
+              {/* { result.isLoading ? 'Loading' : result.data.name } */}
+              { result.isLoading && '로딩중' }
+              { result.error && '에러' }
+              { result.data && result.data.name }
+            </Nav>
           </Container>
         </Navbar>
 
@@ -87,7 +100,7 @@ function App() {
     </div>
   );
 }
-
+ 
 function Event(){
   return(
     <div>

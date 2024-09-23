@@ -5,6 +5,8 @@ import { addItem } from "../store.js";
 // import { Tab } from "react-bootstrap";
 import {Context1} from './../App.js'
 import { useDispatch } from "react-redux";
+import { useLike } from "../hooks/like.js";
+import axios from "axios";
 
 
 function Detail(props) {
@@ -23,6 +25,7 @@ function Detail(props) {
         }
     }, [])
 
+
     // useParams : 유저가 URL파라미터에 입력한 값 가져오기
     let {id} = useParams();
     let 찾은상품 = props.shoes.find(x=> x.id == id);
@@ -40,6 +43,9 @@ function Detail(props) {
         localStorage.setItem('watched',JSON.stringify(꺼낸거))
     }, [])
 
+    let [like, addLike] = useLike()
+
+    axios.get('/username.json')
 
     return(
         <div className="container">
@@ -56,6 +62,7 @@ function Detail(props) {
                 <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
             </div>
             <div className="col-md-6">
+                {like} <span onClick={()=>{ addLike() }}>♥</span>
                 <h4 className="pt-5">{찾은상품.title}</h4>
                 <p>{찾은상품.content}</p>
                 <p>{찾은상품.price}원</p>
