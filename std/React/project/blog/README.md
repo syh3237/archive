@@ -1,8 +1,4 @@
-# React Blog
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## 블로그 제작 & 기초 문법
+# 블로그 제작 & 기초 문법
 
 
 ### 1. `설치, 환경 세팅`
