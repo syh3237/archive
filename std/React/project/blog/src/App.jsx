@@ -41,7 +41,14 @@ function App() {
                     <span className="date">12월10일</span>
                     <span className="view_count">0</span>
                   </span>
-                  <button type='button' className="btn_delete">삭제</button>
+                  <button type='button' className="btn_delete" onClick={()=>{
+                    let copy = [...title];
+                    let copy2 = [...count];
+                    copy.splice(i,1);
+                    copy2.splice(i,1);
+                    setTitle(copy);
+                    setCount(copy2);
+                  }}>삭제</button>
                 </li>
               )
             })
