@@ -1,0 +1,6 @@
+.App{text-align:center;}
+.container{text-align:center;}
+.container .row{justify-content:center;}
+.container .input_box{padding: 0 10%;}
+.container .tab_wrap{opacity: 0;}
+.container .tab_wrap.on{opacity: 1;transition:.3s}
